@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    # entrypoint: ./.docker/entrypoint.sh
+    container_name: ${PROJECT_NAME}-api
+    volumes:
+      - .:/go/src
+    ports:
+      - "8000:8000"
+    restart: on-failure
+    depends_on:
+      - db
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+    networks:
+      - backend
+
+  db:
+    image: postgres:14.3-alpine
+    container_name: ${PROJECT_NAME}-db
+    build: .docker/postgres
+    restart: always
+    tty: true
+    volumes:
+      - ./.docker/pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - DATABASE_HOST=${DB_HOST}
+    ports:
+      - "5432:5432"
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+    networks:
+      - backend
+
+  pgadmin:
+    image: dpage/pgadmin4:6.13
+    container_name: ${PROJECT_NAME}-pgadmin
+    tty: true
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+    ports:
+      - "9000:80"
+    depends_on:
+      - db
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
