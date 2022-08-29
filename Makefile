@@ -11,7 +11,7 @@ migrationdrop:
 	migrate -path db/migration -database "postgresql://postgres:root@localhost:5432/go_finance?sslmode=disable" -verbose down
 
 test:
-	go test -v -cover ./...
+	go test -v -cover ./test/...
 
 server:
 	go run main.go
