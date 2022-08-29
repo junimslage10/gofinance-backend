@@ -31,11 +31,6 @@ jobs:
         with:
           go-version: ^1.18.5
         id: go
-        inputs:
-          command: buildAndPush
-          repository: $(imageRepository)
-          dockerfile: $(dockerfilePath)
-          containerRegistry: $(dockerRegistryServiceConnection)
 
       - name: Check-out code into the Go module directory
         uses: actions/checkout@v2
