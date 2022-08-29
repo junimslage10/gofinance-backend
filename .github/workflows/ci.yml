@@ -14,6 +14,8 @@ jobs:
     services:
       postgres:
         image: postgres:14.3
+        variables:
+          DOCKER_HOST: "tcp://host.docker.internal:5432"
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: root
