@@ -11,7 +11,7 @@ import (
 
 const (
 	dbDriver = "postgres"
-	dbSource = "postgresql://postgres:root@host.docker.internal:5432/go_finance?sslmode=disable"
+	dbSource = "postgresql://postgres:root@localhost:5432/go_finance?sslmode=disable"
 )
 
 var testQueries *Queries
