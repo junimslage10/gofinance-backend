@@ -20,6 +20,8 @@ jobs:
           POSTGRES_DB: go_finance
         ports:
           - 5432:5432
+        extra_hosts:
+          - "host.docker.internal:172.17.0.1"
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
