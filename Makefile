@@ -1,11 +1,8 @@
-# createdb:
-# 	createdb --username=postgres --owner=postgres go_finance
+instalsqlc:
+	go install github.com/kyleconroy/sqlc/cmd/sqlc@v1.15.0
 
-# postgres:
-# 	docker run --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres:14-alpine 
-
-# migrateup:
-# 	migrate -path db/migration -database "postgresql://postgres:root@localhost:5432/go_finance?sslmode=disable" -verbose up
+migrateup:
+	migrate -path db/migration -database "postgresql://postgres:root@localhost:5432/go_finance?sslmode=disable" -verbose up
 
 # migrationdrop:
 # 	migrate -path db/migration -database "postgresql://postgres:root@localhost:5432/go_finance?sslmode=disable" -verbose down
@@ -16,4 +13,4 @@
 # server:
 # 	go run main.go
 
-# .PHONY: createdb postgres dropdb migrateup migrationdrop test server
+.PHONY: instalsqlc migrateup
