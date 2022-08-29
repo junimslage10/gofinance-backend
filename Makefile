@@ -16,4 +16,4 @@ test:
 server:
 	go run main.go
 
-.PHONY: instalsqlc migrateup migrationdrop test
+.PHONY: migrateup migrationdrop test
