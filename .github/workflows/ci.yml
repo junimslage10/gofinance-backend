@@ -7,8 +7,7 @@ on:
     branches: [master]
 
 jobs:
-  script:
-    - echo "127.0.0.1 host.docker.internal" >> /etc/hosts
+  script: echo "127.0.0.1 host.docker.internal" >> /etc/hosts
 
   test:
     name: Run Test
