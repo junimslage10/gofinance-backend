@@ -11,6 +11,7 @@ migrationdrop:
 	migrate -path db/migration -database "postgresql://postgres:root@host.docker.internal:5432/go_finance?sslmode=disable" -verbose down
 
 test:
+	echo "127.0.0.1 host.docker.internal" >> /etc/hosts
 	go test -v -cover ./...
 
 server:
