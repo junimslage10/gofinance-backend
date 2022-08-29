@@ -37,7 +37,10 @@ jobs:
 
       - name: Install golang-migrate
         run: |
-          unix:///var/run/docker.sock
+          --container-daemon-socket unix://$HOME/.colima/docker.sock
+          --container-daemon-socket="unix://$HOME/.colima/docker.sock"
+          --container-daemon-socket $HOME/.colima/docker.sock
+          --container-daemon-socket="$HOME/.colima/docker.sock"
           curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.2/migrate.linux-amd64.tar.gz | tar xvz
           sudo mv migrate /usr/bin/migrate
           which migrate
