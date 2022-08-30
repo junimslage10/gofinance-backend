@@ -7,7 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	db "github.com/junimslage10/gofinance-backend/db/sqlc"
-	_ "github.com/junimslage10/gofinance-backend/util"
+	// "github.com/junimslage10/gofinance-backend/util"
 )
 
 type createAccountRequest struct {
