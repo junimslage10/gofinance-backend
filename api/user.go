@@ -1,11 +1,14 @@
 package api
 
 import (
+	"bytes"
+	"crypto/sha512"
 	"database/sql"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	db "github.com/junimslage10/gofinance-backend/db/sqlc"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type createUserRequest struct {
@@ -21,9 +24,17 @@ func (server *Server) createUser(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 	}
 
+	hashedInput := sha512.Sum512_256([]byte(req.Password))
+	trimmedHash := bytes.Trim(hashedInput[:], "\x00")
+	preparedPassword := string(trimmedHash)
+	passwordHashInBytes, err := bcrypt.GenerateFromPassword([]byte(preparedPassword), bcrypt.DefaultCost)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+	}
+	var passwordHashed = string(passwordHashInBytes)
 	arg := db.CreateUserParams{
 		Username: req.Username,
-		Password: req.Password,
+		Password: passwordHashed,
 		Email:    req.Email,
 	}
 
@@ -32,7 +43,6 @@ func (server *Server) createUser(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 	}
 
-	// Resposta da reaquisição
 	ctx.JSON(http.StatusOK, user)
 }
 
@@ -57,16 +67,15 @@ func (server *Server) getUser(ctx *gin.Context) {
 		return
 	}
 
-	// Resposta da reaquisição
 	ctx.JSON(http.StatusOK, user)
 }
 
-type getUserRequestById struct {
+type getUserByIdRequest struct {
 	ID int32 `uri:"id" binding:"required"`
 }
 
 func (server *Server) getUserById(ctx *gin.Context) {
-	var req getUserRequestById
+	var req getUserByIdRequest
 	err := ctx.ShouldBindUri(&req)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
@@ -82,6 +91,5 @@ func (server *Server) getUserById(ctx *gin.Context) {
 		return
 	}
 
-	// Resposta da reaquisição
 	ctx.JSON(http.StatusOK, user)
 }
