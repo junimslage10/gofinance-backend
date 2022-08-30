@@ -2,22 +2,18 @@ package main
 
 import (
 	"database/sql"
-	"log"
-
 	_ "github.com/lib/pq"
+	"log"
 
 	"github.com/junimslage10/gofinance-backend/api"
 	db "github.com/junimslage10/gofinance-backend/db/sqlc"
-)
-
-const (
-	dbDriver      = "postgres"
-	dbSource      = "postgresql://postgres:root@localhost:5432/go_finance?sslmode=disable"
-	serverAddress = "0.0.0.0:8001"
+	env "github.com/junimslage10/gofinance-backend/util"
 )
 
 func main() {
-	conn, err := sql.Open(dbDriver, dbSource)
+	var dbDriver, filledStringDbSource, serverAddress = env.LoadEnv()
+
+	conn, err := sql.Open(dbDriver, filledStringDbSource)
 	if err != nil {
 		log.Fatal("cannot connect to db: ", err)
 	}
