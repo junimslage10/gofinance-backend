@@ -8,7 +8,9 @@
     "gonic",
     "junimslage",
     "migrateup",
+    "paremeters",
     "sqlc",
-    "SQLC"
+    "SQLC",
+    "Valite"
   ]
 }
