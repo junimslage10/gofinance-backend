@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	db "github.com/junimslage10/gofinance-backend/db/sqlc"
-	_ "github.com/junimslage10/gofinance-backend/util"
+	util "github.com/junimslage10/gofinance-backend/util"
 )
 
 type createCategoryRequest struct {
@@ -17,10 +17,10 @@ type createCategoryRequest struct {
 }
 
 func (server *Server) createCategory(ctx *gin.Context) {
-	// errOnValiteToken := util.GetTokenInHeaderAndVerify(ctx)
-	// if errOnValiteToken != nil {
-	// 	return
-	// }
+	errOnValiteToken := util.GetTokenInHeaderAndVerify(ctx)
+	if errOnValiteToken != nil {
+		return
+	}
 	var req createCategoryRequest
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
@@ -47,10 +47,10 @@ type getCategoryRequest struct {
 }
 
 func (server *Server) getCategory(ctx *gin.Context) {
-	// errOnValiteToken := util.GetTokenInHeaderAndVerify(ctx)
-	// if errOnValiteToken != nil {
-	// 	return
-	// }
+	errOnValiteToken := util.GetTokenInHeaderAndVerify(ctx)
+	if errOnValiteToken != nil {
+		return
+	}
 	var req getCategoryRequest
 	err := ctx.ShouldBindUri(&req)
 	if err != nil {
@@ -75,10 +75,10 @@ type deleteCategoryRequest struct {
 }
 
 func (server *Server) deleteCategory(ctx *gin.Context) {
-	// errOnValiteToken := util.GetTokenInHeaderAndVerify(ctx)
-	// if errOnValiteToken != nil {
-	// 	return
-	// }
+	errOnValiteToken := util.GetTokenInHeaderAndVerify(ctx)
+	if errOnValiteToken != nil {
+		return
+	}
 	var req deleteCategoryRequest
 	err := ctx.ShouldBindUri(&req)
 	if err != nil {
@@ -101,10 +101,10 @@ type updateCategoryRequest struct {
 }
 
 func (server *Server) updateCategory(ctx *gin.Context) {
-	// errOnValiteToken := util.GetTokenInHeaderAndVerify(ctx)
-	// if errOnValiteToken != nil {
-	// 	return
-	// }
+	errOnValiteToken := util.GetTokenInHeaderAndVerify(ctx)
+	if errOnValiteToken != nil {
+		return
+	}
 	var req updateCategoryRequest
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
@@ -133,10 +133,10 @@ type getCategoriesRequest struct {
 }
 
 func (server *Server) getCategories(ctx *gin.Context) {
-	// errOnValiteToken := util.GetTokenInHeaderAndVerify(ctx)
-	// if errOnValiteToken != nil {
-	// 	return
-	// }
+	errOnValiteToken := util.GetTokenInHeaderAndVerify(ctx)
+	if errOnValiteToken != nil {
+		return
+	}
 	var req getCategoriesRequest
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
