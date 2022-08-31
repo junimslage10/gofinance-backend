@@ -27,7 +27,7 @@ func LoadEnv() (DbDriver string, FilledStringDbSource string, ServerAddress stri
 		log.Fatal("Error loading .env file")
 	}
 
-	envArgs := EnvParams{
+	envArgs := &EnvParams{
 		DbType:        os.Getenv("DB_TYPE"),
 		DbDriver:      os.Getenv("DB_DRIVER"),
 		DbUser:        os.Getenv("DB_USER"),
